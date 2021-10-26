@@ -10,17 +10,17 @@ import (
 // MODIFY HERE
 
 // xor: !=
-const exprString = "\\overline{x_{1}*(x_{2}+x_{3})}"
+const exprString = "y"
 
-func expr(a, b, c bool) bool {
-	return !(a && (b || c))
+func expr(a, b bool) bool {
+	return a != b
 }
 
 // DONT MODIFY PAST THIS LINE
 
 func main() {
 	v := reflect.ValueOf(expr)
-	fmt.Printf("\\begin{tabular}{ |%s|c| }\n  \\hline\n", strings.Repeat("c|", v.Type().NumIn()))
+	fmt.Printf("\\begin{tabular}{ %s|c }\n", strings.Repeat("c|", v.Type().NumIn()))
 
 	names := make([]string, v.Type().NumIn())
 	for i := range names {
@@ -39,7 +39,7 @@ func main() {
 
 		fmt.Printf("  %s & %d \\\\\n", strings.Join(strs, " & "), b2i(res))
 	}
-	fmt.Printf("  \\hline\n\\end{tabular}\n")
+	fmt.Printf("\\end{tabular}\n")
 }
 
 func b2i(b bool) int {
