@@ -10,10 +10,10 @@ import (
 // MODIFY HERE
 
 // xor: !=
-const exprString = "a \\lxor b"
+const exprString = "\\overline{x_{1}*(x_{2}+x_{3})}"
 
-func expr(a, b bool) bool {
-	return a != b
+func expr(a, b, c bool) bool {
+	return !(a && (b || c))
 }
 
 // DONT MODIFY PAST THIS LINE
@@ -24,7 +24,7 @@ func main() {
 
 	names := make([]string, v.Type().NumIn())
 	for i := range names {
-		names[i] = string(rune(int('a') + i))
+		names[i] = string(rune(int('a') + v.Type().NumIn() - i - 1))
 	}
 	fmt.Printf("  %s & $%s$ \\\\\n  \\hline\n", strings.Join(names, " & "), exprString)
 
