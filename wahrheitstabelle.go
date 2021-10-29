@@ -12,11 +12,18 @@ import (
 // xor: !=
 const exprString = "y"
 
-func expr(a, b bool) bool {
-	return a != b
+func expr(P, Q bool) bool {
+	return imply(imply(!P, Q) && imply(!P, !Q), P)
 }
 
 // DONT MODIFY PAST THIS LINE
+
+func imply(a, b bool) bool {
+	if !a {
+		return true
+	}
+	return b
+}
 
 func main() {
 	v := reflect.ValueOf(expr)
@@ -24,7 +31,7 @@ func main() {
 
 	names := make([]string, v.Type().NumIn())
 	for i := range names {
-		names[i] = string(rune(int('a') + v.Type().NumIn() - i - 1))
+		names[i] = string(rune(int('a') + i))
 	}
 	fmt.Printf("  %s & $%s$ \\\\\n  \\hline\n", strings.Join(names, " & "), exprString)
 
